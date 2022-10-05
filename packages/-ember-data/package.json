@@ -44,17 +44,21 @@
     "ember-inflector": "^4.0.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.9",
+    "@babel/runtime": "^7.18.9",
     "@babel/plugin-transform-typescript": "^7.18.12",
     "@ember-data/unpublished-test-infra": "4.9.0-alpha.4",
     "@ember/optional-features": "^2.0.0",
     "@ember/test-helpers": "~2.7.0",
     "@glimmer/component": "^1.1.2",
     "@types/ember": "^4.0.1",
+    "@types/ember__object": "^4.0.4",
     "@types/ember-qunit": "^5.0.1",
     "@types/ember-testing-helpers": "^0.0.4",
     "@types/ember__debug": "^4.0.1",
     "@types/ember__test-helpers": "^2.8.1",
     "@types/ember__utils": "^4.0.1",
+    "@types/qunit": "^2.19.2",
     "@types/rsvp": "^4.0.4",
     "broccoli-concat": "^4.2.5",
     "broccoli-stew": "^3.0.0",
@@ -104,6 +108,7 @@
   },
   "volta": {
     "node": "16.17.0",
-    "yarn": "1.22.19"
-  }
+    "pnpm": "7.12.2"
+  },
+	"packageManager": "pnpm@7.12.2"
 }

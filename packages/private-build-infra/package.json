@@ -18,6 +18,8 @@
   },
   "scripts": {},
   "dependencies": {
+    "@babel/core": "^7.18.9",
+    "@babel/runtime": "^7.18.9",
     "@babel/plugin-transform-block-scoping": "^7.18.9",
     "@ember-data/canary-features": "4.9.0-alpha.4",
     "@ember/edition-utils": "^1.2.0",
@@ -49,6 +51,7 @@
   },
   "volta": {
     "node": "16.17.0",
-    "yarn": "1.22.19"
-  }
+    "pnpm": "7.12.2"
+  },
+	"packageManager": "pnpm@7.12.2"
 }

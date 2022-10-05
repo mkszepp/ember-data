@@ -21,15 +21,19 @@
     "start": "ember serve",
     "test:node": "mocha"
   },
+  "peerDependencies": {
+    "@ember-data/store": "4.9.0-alpha.4"
+  },
   "dependencies": {
     "@ember-data/private-build-infra": "4.9.0-alpha.4",
-    "@ember-data/store": "4.9.0-alpha.4",
     "ember-auto-import": "^2.4.2",
     "ember-cli-babel": "^7.26.11",
     "ember-cli-test-info": "^1.0.0",
     "ember-cli-typescript": "^5.1.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.9",
+    "@babel/runtime": "^7.18.9",
     "@ember-data/unpublished-test-infra": "4.9.0-alpha.4",
     "@ember/optional-features": "^2.0.0",
     "@ember/string": "^3.0.0",
@@ -65,6 +69,7 @@
   },
   "volta": {
     "node": "16.17.0",
-    "yarn": "1.22.19"
-  }
+    "pnpm": "7.12.2"
+  },
+	"packageManager": "pnpm@7.12.2"
 }
