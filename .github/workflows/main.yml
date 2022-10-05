@@ -89,7 +89,7 @@ jobs:
           node-version: 16.x
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm install --network-timeout=300000
+        run: pnpm install --prefer-offline
       - name: Launcher Info
         run: |
           pnpm run testem launchers
@@ -155,7 +155,7 @@ jobs:
           node-version: 16.x
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm install --network-timeout=300000
+        run: pnpm install --prefer-offline
       - name: Fastboot Test ${{ matrix.scenario }}
         timeout-minutes: 12
         run: pnpm test:fastboot ${{ matrix.scenario }}
@@ -189,7 +189,7 @@ jobs:
           node-version: 16.x
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm install --network-timeout=300000
+        run: pnpm install --prefer-offline
       - name: Launcher Info
         run: |
           pnpm run testem launchers
@@ -214,7 +214,7 @@ jobs:
           node-version: 16.x
           cache: 'pnpm'
       - name: Install dependencies w/o lockfile
-        run: pnpm install --non-interactive
+        run: pnpm install --non-interactive --no-lockfile
       - name: Basic Tests
         run: pnpm test
 
@@ -293,7 +293,7 @@ jobs:
           node-version: 16.x
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm install --network-timeout=300000
+        run: pnpm install --prefer-offline
       - name: Basic tests with ${{ matrix.scenario }}
         env:
           CI: true
