@@ -72,7 +72,7 @@ runs:
     - name: Exec Library Prepackage Steps
       if: ${{ inputs.build-addons == 'true' }}
       shell: bash
-      run: pnpm build-v2-addons
+      run: pnpm build-v2-addons && pnpm install
 
     - name: Restore Lint Caches
       if: ${{ inputs.restore-lint-caches == 'true' }}
