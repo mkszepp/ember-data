@@ -12,7 +12,7 @@
     "test": "tests"
   },
   "scripts": {
-    "prepublishOnly": "cd ../.. && pnpm build:docs"
+    "prepublishOnly": "cd ../../ && pnpm build:docs"
   },
   "author": "",
   "license": "MIT",
