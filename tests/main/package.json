@@ -28,7 +28,8 @@
     "@ember-data/serializer": { "injected": true },
     "@ember-data/store": { "injected": true },
     "@ember-data/tracking": { "injected": true },
-    "@ember-data/private-build-infra": { "injected": true }
+    "@ember-data/private-build-infra": { "injected": true },
+    "@ember-data/unpublished-test-infra": { "injected": true }
   },
   "devDependencies": {
     "@babel/plugin-transform-typescript": "^7.19.3",

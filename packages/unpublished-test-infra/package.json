@@ -21,7 +21,7 @@
     "test": "ember test"
   },
   "dependencies": {
-    "@ember-data/private-build-infra": "4.9.0-alpha.6",
+    "@ember-data/private-build-infra": "workspace:4.9.0-alpha.6",
     "@ember/edition-utils": "^1.2.0",
     "ember-auto-import": "^2.4.3",
     "ember-cli-babel": "^7.26.11",
@@ -33,6 +33,9 @@
     "semver": "^7.3.8",
     "testem": "^3.9.0",
     "webpack": "^5.74.0"
+  },
+  "dependenciesMeta": {
+    "@ember-data/private-build-infra": { "injected": "true"}
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",

@@ -560,7 +560,7 @@ importers:
     specifiers:
       '@babel/core': ^7.19.3
       '@babel/runtime': ^7.19.4
-      '@ember-data/private-build-infra': 4.9.0-alpha.6
+      '@ember-data/private-build-infra': workspace:4.9.0-alpha.6
       '@ember/edition-utils': ^1.2.0
       '@ember/optional-features': ^2.0.0
       '@ember/test-helpers': ~2.8.1
@@ -592,7 +592,7 @@ importers:
       testem: ^3.9.0
       webpack: ^5.74.0
     dependencies:
-      '@ember-data/private-build-infra': link:../private-build-infra
+      '@ember-data/private-build-infra': file:packages/private-build-infra
       '@ember/edition-utils': 1.2.0
       ember-auto-import: 2.4.3_webpack@5.74.0
       ember-cli-babel: 7.26.11
@@ -626,6 +626,9 @@ importers:
       ember-resolver: 8.0.3_@babel+core@7.19.3
       ember-source: 4.8.0_zdxgkgqlrodn7l3e6kyjrbkczu
       loader.js: 4.7.0
+    dependenciesMeta:
+      '@ember-data/private-build-infra':
+        injected: 'true'
 
   tests/adapter-encapsulation:
     specifiers:
@@ -671,7 +674,7 @@ importers:
       '@ember-data/serializer': file:packages/serializer_4uxk3emunryqikimvqoqgc45fy
       '@ember-data/store': file:packages/store_hwjcx6yarwn54ond7yehumcx6m
       '@ember-data/tracking': file:packages/tracking
-      '@ember-data/unpublished-test-infra': file:packages/unpublished-test-infra_@babel+core@7.19.3
+      '@ember-data/unpublished-test-infra': file:packages/unpublished-test-infra
       '@ember/optional-features': 2.0.0
       '@ember/string': 3.0.0
       '@ember/test-helpers': 2.8.1_2h2t722bi4yw6y5yechgbjongi
@@ -983,7 +986,7 @@ importers:
       '@ember-data/record-data': file:packages/record-data_pfh6udfhgypf6hsnixht6clc3y
       '@ember-data/store': file:packages/store_hwjcx6yarwn54ond7yehumcx6m
       '@ember-data/tracking': file:packages/tracking
-      '@ember-data/unpublished-test-infra': file:packages/unpublished-test-infra_@babel+core@7.19.3
+      '@ember-data/unpublished-test-infra': file:packages/unpublished-test-infra
       '@ember/edition-utils': 1.2.0
       '@ember/optional-features': 2.0.0
       '@ember/string': 3.0.0
@@ -1112,7 +1115,7 @@ importers:
       '@ember-data/serializer': file:packages/serializer_4uxk3emunryqikimvqoqgc45fy
       '@ember-data/store': file:packages/store_hwjcx6yarwn54ond7yehumcx6m
       '@ember-data/tracking': file:packages/tracking
-      '@ember-data/unpublished-test-infra': link:../../packages/unpublished-test-infra
+      '@ember-data/unpublished-test-infra': file:packages/unpublished-test-infra
       '@ember/edition-utils': 1.2.0
       '@ember/optional-features': 2.0.0
       '@ember/string': 3.0.0
@@ -1183,6 +1186,8 @@ importers:
         injected: true
       '@ember-data/tracking':
         injected: true
+      '@ember-data/unpublished-test-infra':
+        injected: true
       ember-data:
         injected: true
 
@@ -1230,7 +1235,7 @@ importers:
       '@ember-data/serializer': file:packages/serializer_4uxk3emunryqikimvqoqgc45fy
       '@ember-data/store': file:packages/store_xqsediqw75bdol7fidha76hfie
       '@ember-data/tracking': file:packages/tracking
-      '@ember-data/unpublished-test-infra': file:packages/unpublished-test-infra_@babel+core@7.19.3
+      '@ember-data/unpublished-test-infra': file:packages/unpublished-test-infra
       '@ember/optional-features': 2.0.0
       '@ember/string': 3.0.0
       '@ember/test-helpers': 2.8.1_2h2t722bi4yw6y5yechgbjongi
@@ -1362,7 +1367,7 @@ importers:
       '@ember-data/serializer': file:packages/serializer_4uxk3emunryqikimvqoqgc45fy
       '@ember-data/store': file:packages/store_zvlpeclx2dyjxv3fkzq6vr7e5y
       '@ember-data/tracking': file:packages/tracking
-      '@ember-data/unpublished-test-infra': file:packages/unpublished-test-infra_@babel+core@7.19.3
+      '@ember-data/unpublished-test-infra': file:packages/unpublished-test-infra
       '@ember/optional-features': 2.0.0
       '@ember/string': 3.0.0
       '@ember/test-helpers': 2.8.1_2h2t722bi4yw6y5yechgbjongi
@@ -1445,7 +1450,7 @@ importers:
       '@ember-data/record-data': file:packages/record-data_pfh6udfhgypf6hsnixht6clc3y
       '@ember-data/store': file:packages/store_hwjcx6yarwn54ond7yehumcx6m
       '@ember-data/tracking': file:packages/tracking
-      '@ember-data/unpublished-test-infra': file:packages/unpublished-test-infra_@babel+core@7.19.3
+      '@ember-data/unpublished-test-infra': file:packages/unpublished-test-infra
       '@ember/optional-features': 2.0.0
       '@ember/string': 3.0.0
       '@ember/test-helpers': 2.8.1_2h2t722bi4yw6y5yechgbjongi
@@ -3875,40 +3880,6 @@ packages:
       ember-cli-typescript: 5.1.1
     transitivePeerDependencies:
       - supports-color
-
-  /@ember-data/private-build-infra/4.9.0-alpha.6_@babel+core@7.19.3:
-    resolution: {integrity: sha512-PIyIjr7aNSHoEMB+eDwTy1ymEOcbEJNTZUGwCDBLLoKP+boUYLDvXzZH+HQGFackP790/YEKV1L5cKdTIPSeWg==}
-    engines: {node: ^14.8.0 || 16.* || >= 18.*}
-    dependencies:
-      '@babel/plugin-transform-block-scoping': 7.19.4_@babel+core@7.19.3
-      '@ember-data/canary-features': 4.9.0-alpha.6
-      '@ember/edition-utils': 1.2.0
-      babel-plugin-debug-macros: 0.3.4_@babel+core@7.19.3
-      babel-plugin-filter-imports: 4.0.0
-      babel6-plugin-strip-class-callcheck: 6.0.0
-      broccoli-debug: 0.6.5
-      broccoli-file-creator: 2.1.1
-      broccoli-funnel: 3.0.8
-      broccoli-merge-trees: 4.2.0
-      broccoli-rollup: 5.0.0
-      calculate-cache-key-for-tree: 2.0.0
-      chalk: 4.1.2
-      ember-cli-babel: 7.26.11
-      ember-cli-path-utils: 1.0.0
-      ember-cli-string-utils: 1.1.0
-      ember-cli-typescript: 5.1.1
-      ember-cli-version-checker: 5.1.2
-      git-repo-info: 2.1.1
-      glob: 8.0.3
-      npm-git-info: 1.0.3
-      rimraf: 3.0.2
-      rsvp: 4.8.5
-      semver: 7.3.8
-      silent-error: 1.1.1
-    transitivePeerDependencies:
-      - '@babel/core'
-      - supports-color
-    dev: true
 
   /@ember-data/rfc395-data/0.0.4:
     resolution: {integrity: sha512-tGRdvgC9/QMQSuSuJV45xoyhI0Pzjm7A9o/MVVA3HakXIImJbbzx/k/6dO9CUEQXIyS2y0fW6C1XaYOG7rY0FQ==}
@@ -18180,14 +18151,13 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  file:packages/unpublished-test-infra_@babel+core@7.19.3:
+  file:packages/unpublished-test-infra:
     resolution: {directory: packages/unpublished-test-infra, type: directory}
-    id: file:packages/unpublished-test-infra
     name: '@ember-data/unpublished-test-infra'
     version: 4.9.0-alpha.6
     engines: {node: ^14.8.0 || 16.* || >= 18.*}
     dependencies:
-      '@ember-data/private-build-infra': 4.9.0-alpha.6_@babel+core@7.19.3
+      '@ember-data/private-build-infra': file:packages/private-build-infra
       '@ember/edition-utils': 1.2.0
       ember-auto-import: 2.4.3_webpack@5.74.0
       ember-cli-babel: 7.26.11
@@ -18200,7 +18170,6 @@ packages:
       testem: 3.9.0
       webpack: 5.74.0
     transitivePeerDependencies:
-      - '@babel/core'
       - '@swc/core'
       - arc-templates
       - atpl
