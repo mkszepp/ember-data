@@ -943,7 +943,7 @@ importers:
     devDependencies:
       '@babel/core': 7.19.3
       '@babel/runtime': 7.19.4
-      '@ember-data/private-build-infra': link:../../packages/private-build-infra
+      '@ember-data/private-build-infra': file:packages/private-build-infra
       '@ember/optional-features': 2.0.0
       '@glimmer/component': 1.1.2_@babel+core@7.19.3
       broccoli-asset-rev: 3.0.0
@@ -953,7 +953,7 @@ importers:
       ember-cli-babel: 7.26.11
       ember-cli-dependency-checker: 3.3.1_ember-cli@4.8.0
       ember-cli-htmlbars: 6.1.1
-      ember-data: link:../../packages/-ember-data
+      ember-data: file:packages/-ember-data_nylnrd5zh3myckawdfpf6d4yi4
       ember-export-application-global: 2.0.1
       ember-load-initializers: 2.1.2_@babel+core@7.19.3
       ember-maybe-import-regenerator: 1.0.0
@@ -962,6 +962,11 @@ importers:
       loader.js: 4.7.0
       webpack: 5.74.0
       zlib: 1.0.5
+    dependenciesMeta:
+      '@ember-data/private-build-infra':
+        injected: true
+      ember-data:
+        injected: true
 
   tests/graph:
     specifiers:
@@ -1331,7 +1336,7 @@ importers:
       zlib: 1.0.5
     dependencies:
       ember-auto-import: 2.4.3_webpack@5.74.0
-      ember-data: link:../../packages/-ember-data
+      ember-data: file:packages/-ember-data_nylnrd5zh3myckawdfpf6d4yi4
     devDependencies:
       '@babel/core': 7.19.3
       '@babel/runtime': 7.19.4
@@ -1352,6 +1357,9 @@ importers:
       loader.js: 4.7.0
       webpack: 5.74.0
       zlib: 1.0.5
+    dependenciesMeta:
+      ember-data:
+        injected: true
 
   tests/record-data-encapsulation:
     specifiers:
@@ -17950,6 +17958,36 @@ packages:
       - supports-color
       - webpack
 
+  file:packages/-ember-data_nylnrd5zh3myckawdfpf6d4yi4:
+    resolution: {directory: packages/-ember-data, type: directory}
+    id: file:packages/-ember-data
+    name: ember-data
+    version: 4.9.0-alpha.6
+    engines: {node: ^14.8.0 || 16.* || >= 18.*}
+    dependencies:
+      '@ember-data/adapter': file:packages/adapter_4uxk3emunryqikimvqoqgc45fy
+      '@ember-data/debug': file:packages/debug_kmsc2736dkhfkaunrjhq23icem
+      '@ember-data/model': file:packages/model_zleg4eekn72x7ocmjkj6d47xgi
+      '@ember-data/private-build-infra': file:packages/private-build-infra
+      '@ember-data/record-data': file:packages/record-data_pfh6udfhgypf6hsnixht6clc3y
+      '@ember-data/serializer': file:packages/serializer_4uxk3emunryqikimvqoqgc45fy
+      '@ember-data/store': file:packages/store_lv74eol25evk3uyjh5mbpokllu
+      '@ember-data/tracking': file:packages/tracking
+      '@ember/edition-utils': 1.2.0
+      '@ember/string': 3.0.0
+      '@embroider/macros': 1.9.0
+      '@glimmer/env': 0.1.7
+      broccoli-merge-trees: 4.2.0
+      ember-auto-import: 2.4.3_webpack@5.74.0
+      ember-cli-babel: 7.26.11
+      ember-inflector: 4.0.2
+    transitivePeerDependencies:
+      - '@babel/core'
+      - '@glimmer/tracking'
+      - ember-source
+      - supports-color
+      - webpack
+
   file:packages/adapter:
     resolution: {directory: packages/adapter, type: directory}
     name: '@ember-data/adapter'
@@ -18325,6 +18363,40 @@ packages:
       '@ember/string': 3.0.0
       '@embroider/macros': 1.9.0
       '@glimmer/tracking': 1.1.2
+      ember-auto-import: 2.4.3_webpack@5.74.0
+      ember-cached-decorator-polyfill: 1.0.1_2h2t722bi4yw6y5yechgbjongi
+      ember-cli-babel: 7.26.11
+    transitivePeerDependencies:
+      - '@babel/core'
+      - ember-source
+      - supports-color
+      - webpack
+
+  file:packages/store_lv74eol25evk3uyjh5mbpokllu:
+    resolution: {directory: packages/store, type: directory}
+    id: file:packages/store
+    name: '@ember-data/store'
+    version: 4.9.0-alpha.6
+    engines: {node: ^14.8.0 || 16.* || >= 18.*}
+    peerDependencies:
+      '@ember-data/model': workspace:4.9.0-alpha.6
+      '@ember-data/record-data': workspace:4.9.0-alpha.6
+      '@ember-data/tracking': workspace:4.9.0-alpha.6
+      '@ember/string': ^3.0.0
+      '@glimmer/tracking': ^1.1.2
+    peerDependenciesMeta:
+      '@ember-data/model':
+        optional: true
+      '@ember-data/record-data':
+        optional: true
+    dependencies:
+      '@ember-data/canary-features': file:packages/canary-features
+      '@ember-data/model': file:packages/model_zleg4eekn72x7ocmjkj6d47xgi
+      '@ember-data/private-build-infra': file:packages/private-build-infra
+      '@ember-data/record-data': file:packages/record-data_pfh6udfhgypf6hsnixht6clc3y
+      '@ember-data/tracking': file:packages/tracking
+      '@ember/string': 3.0.0
+      '@embroider/macros': 1.9.0
       ember-auto-import: 2.4.3_webpack@5.74.0
       ember-cached-decorator-polyfill: 1.0.1_2h2t722bi4yw6y5yechgbjongi
       ember-cli-babel: 7.26.11

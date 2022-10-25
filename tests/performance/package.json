@@ -22,6 +22,9 @@
     "ember-auto-import": "^2.4.3",
     "ember-data": "workspace:4.9.0-alpha.6"
   },
+  "dependenciesMeta": {
+    "ember-data": { "injected": true }
+  },
   "devDependencies": {
     "@babel/core": "^7.19.3",
     "@babel/runtime": "^7.19.3",
