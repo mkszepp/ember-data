@@ -18,9 +18,7 @@
     "@ember/string": "^3.0.0"
   },
   "dependenciesMeta": {
-    "injected": {
-      "@ember-data/private-build-infra": "workspace:4.9.0-alpha.6"
-    }
+    "@ember-data/private-build-infra": { "injected": true }
   },
   "dependencies": {
     "@ember-data/private-build-infra": "workspace:4.9.0-alpha.6",

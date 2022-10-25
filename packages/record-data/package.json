@@ -16,10 +16,8 @@
     "@ember-data/store": "workspace:4.9.0-alpha.6"
   },
   "dependenciesMeta": {
-    "injected": {
-      "@ember-data/canary-features": "workspace:4.9.0-alpha.6",
-      "@ember-data/private-build-infra": "workspace:4.9.0-alpha.6"
-    }
+    "@ember-data/canary-features": { "injected": true },
+    "@ember-data/private-build-infra": { "injected": true }
   },
   "dependencies": {
     "@ember-data/canary-features": "workspace:4.9.0-alpha.6",
