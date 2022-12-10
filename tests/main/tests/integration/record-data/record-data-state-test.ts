@@ -11,6 +11,7 @@ import Model, { attr } from '@ember-data/model';
 import { DEPRECATE_V1_RECORD_DATA } from '@ember-data/private-build-infra/deprecations';
 import JSONAPISerializer from '@ember-data/serializer/json-api';
 import Store, { recordIdentifierFor } from '@ember-data/store';
+import { ResourceDocument, StructuredDocument } from '@ember-data/types/cache/document';
 import type { Cache, CacheV1, ChangedAttributesHash, MergeOperation } from '@ember-data/types/q/cache';
 import { CacheStoreWrapper } from '@ember-data/types/q/cache-store-wrapper';
 import { CollectionResourceRelationship, SingleResourceRelationship } from '@ember-data/types/q/ember-data-json-api';
@@ -59,9 +60,9 @@ class V1TestRecordData implements CacheV1 {
   // Use correct interface once imports have been fix
   _storeWrapper: any;
 
-  pushData(data: object, calculateChange: true): string[];
-  pushData(data: object, calculateChange?: false): void;
-  pushData(data: object, calculateChange?: boolean): string[] | void {}
+  upsert(data: object, calculateChange: true): string[];
+  upsert(data: object, calculateChange?: false): void;
+  upsert(data: object, calculateChange?: boolean): string[] | void {}
 
   clientDidCreate() {}
 
@@ -115,7 +116,10 @@ class V1TestRecordData implements CacheV1 {
   }
 }
 class V2TestRecordData implements Cache {
-  sync(op: MergeOperation): void {
+  patch(op: MergeOperation): void {
+    throw new Error('Method not implemented.');
+  }
+  put<T>(doc: StructuredDocument<T>): ResourceDocument {
     throw new Error('Method not implemented.');
   }
   update(operation: LocalRelationshipOperation): void {
@@ -126,7 +130,7 @@ class V2TestRecordData implements Cache {
   _errors?: JsonApiValidationError[];
   _isNew: boolean = false;
 
-  pushData(
+  upsert(
     identifier: StableRecordIdentifier,
     data: JsonApiResource,
     calculateChanges?: boolean | undefined

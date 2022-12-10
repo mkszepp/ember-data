@@ -1,5 +1,6 @@
 import { LocalRelationshipOperation } from '@ember-data/graph/-private/graph/-operations';
 
+import { ResourceDocument, StructuredDocument } from '../cache/document';
 import type { CollectionResourceRelationship, SingleResourceRelationship } from './ember-data-json-api';
 import type { RecordIdentifier, StableRecordIdentifier } from './identifier';
 import type { JsonApiResource, JsonApiValidationError } from './record-data-json-api';
@@ -26,9 +27,9 @@ export interface CacheV1 {
   // =====
   getResourceIdentifier(): RecordIdentifier | undefined;
 
-  pushData(data: JsonApiResource, calculateChange: true): string[];
-  pushData(data: JsonApiResource, calculateChange?: false): void;
-  pushData(data: JsonApiResource, calculateChange?: boolean): string[] | void;
+  upsert(data: JsonApiResource, calculateChange: true): string[];
+  upsert(data: JsonApiResource, calculateChange?: false): void;
+  upsert(data: JsonApiResource, calculateChange?: boolean): string[] | void;
   clientDidCreate(): void;
   _initRecordCreateOptions(options?: Dict<unknown>): { [key: string]: unknown };
 
@@ -66,13 +67,72 @@ export interface CacheV1 {
   isDeletionCommitted(identifier: StableRecordIdentifier): boolean;
 }
 
+/**
+ * The interface for EmberData Caches.
+ *
+ * A Cache handles in-memory storage of Document and Resource
+ * data.
+ *
+ * @class Cache
+ */
 export interface Cache {
+  /**
+   * The Cache Version that this implementation implements.
+   *
+   * @type {'2'}
+   * @property version
+   */
   version: '2';
 
-  // Cache
-  // =====
+  /**
+   * Cache the response to a request
+   *
+   * Unlike `store.push` which has UPSERT
+   * semantics, `put` has `replace` semantics similar to
+   * the `http` method `PUT`
+   *
+   * the individually cacheable resource data it may contain
+   * should upsert, but the document data surrounding it should
+   * fully replace any existing information
+   *
+   * Note that in order to support inserting arbitrary data
+   * to the cache that did not originate from a request `put`
+   * should expect to sometimes encounter a document with only
+   * a `data` member and therefor must not assume the existence
+   * of `request` and `response` on the document.
+   *
+   * @method put
+   * @param {StructuredDocument} doc
+   * @returns {ResourceDocument}
+   * @public
+   */
+  put<T>(doc: StructuredDocument<T>): ResourceDocument;
 
-  pushData(identifier: StableRecordIdentifier, data: JsonApiResource, calculateChanges?: boolean): void | string[];
+  /**
+   * Update the "remote" or "canonical" (persisted) state of the Cache
+   * by merging new information into the existing state.
+   *
+   * Note: currently the only valid resource operation is a MergeOperation
+   * which occurs when a collision of identifiers is detected.
+   *
+   * @method patch
+   * @public
+   * @param {Operation} op the operation to perform
+   * @returns {void}
+   */
+  patch(op: MergeOperation): void;
+
+  /**
+   * Push resource data from a remote source into the cache for this identifier
+   *
+   * @method upsert
+   * @public
+   * @param identifier
+   * @param data
+   * @param hasRecord
+   * @returns {void | string[]} if `hasRecord` is true then calculated key changes should be returned
+   */
+  upsert(identifier: StableRecordIdentifier, data: JsonApiResource, calculateChanges?: boolean): void | string[];
   clientDidCreate(identifier: StableRecordIdentifier, options?: Dict<unknown>): Dict<unknown>;
 
   willCommit(identifier: StableRecordIdentifier): void;
@@ -80,7 +140,6 @@ export interface Cache {
   commitWasRejected(identifier: StableRecordIdentifier, errors?: JsonApiValidationError[]): void;
 
   unloadRecord(identifier: StableRecordIdentifier): void;
-  sync(op: MergeOperation): void;
 
   // Attrs
   // =====

@@ -187,7 +187,7 @@ export class InstanceCache {
         let recordData = keptRecordData || staleRecordData;
 
         if (recordData) {
-          recordData.sync({
+          recordData.patch({
             op: 'mergeIdentifiers',
             record: staleIdentifier,
             value: keptIdentifier,
@@ -195,7 +195,7 @@ export class InstanceCache {
         } else if (HAS_JSON_API_PACKAGE) {
           // TODO notify cache always, this requires it always being a singleton
           // and not ever specific to one record-data
-          this.store.__private_singleton_recordData?.sync({
+          this.store.__private_singleton_recordData?.patch({
             op: 'mergeIdentifiers',
             record: staleIdentifier,
             value: keptIdentifier,
@@ -578,7 +578,7 @@ export class InstanceCache {
     }
 
     const hasRecord = this.__instances.record.has(identifier);
-    recordData.pushData(identifier, data, hasRecord);
+    recordData.upsert(identifier, data, hasRecord);
 
     if (!isUpdate) {
       this.store.recordArrayManager.identifierAdded(identifier);
@@ -635,7 +635,7 @@ export function preloadData(store: Store, identifier: StableRecordIdentifier, pr
       jsonPayload.attributes[key] = preloadValue;
     }
   });
-  store._instanceCache.getRecordData(identifier).pushData(identifier, jsonPayload);
+  store._instanceCache.getRecordData(identifier).upsert(identifier, jsonPayload);
 }
 
 function preloadRelationship(

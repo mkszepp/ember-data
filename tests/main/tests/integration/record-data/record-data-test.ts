@@ -11,6 +11,7 @@ import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 import { DEPRECATE_V1_RECORD_DATA } from '@ember-data/private-build-infra/deprecations';
 import JSONAPISerializer from '@ember-data/serializer/json-api';
 import Store from '@ember-data/store';
+import { ResourceDocument, StructuredDocument } from '@ember-data/types/cache/document';
 import type { Cache, ChangedAttributesHash, MergeOperation } from '@ember-data/types/q/cache';
 import type { CacheStoreWrapper } from '@ember-data/types/q/cache-store-wrapper';
 import type {
@@ -50,9 +51,9 @@ class V1TestRecordData {
     this._identifier = identifier;
   }
 
-  pushData(data: object, calculateChange: true): string[];
-  pushData(data: object, calculateChange?: false): void;
-  pushData(data: object, calculateChange?: boolean): string[] | void {}
+  upsert(data: object, calculateChange: true): string[];
+  upsert(data: object, calculateChange?: false): void;
+  upsert(data: object, calculateChange?: boolean): string[] | void {}
 
   clientDidCreate() {}
 
@@ -119,10 +120,13 @@ class V2TestRecordData implements Cache {
     this._storeWrapper = wrapper;
     this._identifier = identifier;
   }
-  sync(op: MergeOperation): void {
+  patch(op: MergeOperation): void {
     throw new Error('Method not implemented.');
   }
-  pushData(
+  put<T>(doc: StructuredDocument<T>): ResourceDocument {
+    throw new Error('Method not implemented.');
+  }
+  upsert(
     identifier: StableRecordIdentifier,
     data: JsonApiResource,
     calculateChanges?: boolean | undefined
@@ -310,9 +314,9 @@ module('integration/record-data - Custom RecordData Implementations', function (
     let isNew = false;
 
     class LifecycleRecordData extends TestRecordData {
-      pushData(data: object, calculateChange: true): string[];
-      pushData(data: object, calculateChange?: false): void;
-      pushData(data: object, calculateChange?: boolean): string[] | void {
+      upsert(data: object, calculateChange: true): string[];
+      upsert(data: object, calculateChange?: false): void;
+      upsert(data: object, calculateChange?: boolean): string[] | void {
         calledPush++;
       }
 

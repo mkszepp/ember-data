@@ -1,17 +1,61 @@
 import { assert, deprecate } from '@ember/debug';
 
 import type { LocalRelationshipOperation } from '@ember-data/graph/-private/graph/-operations';
+import { StructuredDataDocument } from '@ember-data/request/-private/types';
+import { ResourceDocument, StructuredDocument } from '@ember-data/types/cache/document';
 import type { Cache, CacheV1, ChangedAttributesHash, MergeOperation } from '@ember-data/types/q/cache';
 import type {
   CollectionResourceRelationship,
+  JsonApiDocument,
   SingleResourceRelationship,
 } from '@ember-data/types/q/ember-data-json-api';
-import type { StableRecordIdentifier } from '@ember-data/types/q/identifier';
+import type { StableExistingRecordIdentifier, StableRecordIdentifier } from '@ember-data/types/q/identifier';
 import type { JsonApiResource, JsonApiValidationError } from '@ember-data/types/q/record-data-json-api';
 import type { Dict } from '@ember-data/types/q/utils';
 
 import { isStableIdentifier } from '../caches/identifier-cache';
 import type Store from '../store-service';
+
+function legacyCachePut(store: Store, doc: StructuredDataDocument<JsonApiDocument>): ResourceDocument {
+  const jsonApiDoc = doc.data;
+  let ret: ResourceDocument;
+  store._join(() => {
+    let included = jsonApiDoc.included;
+    let i: number, length: number;
+
+    if (included) {
+      for (i = 0, length = included.length; i < length; i++) {
+        store._instanceCache.loadData(included[i]);
+      }
+    }
+
+    if (Array.isArray(jsonApiDoc.data)) {
+      length = jsonApiDoc.data.length;
+      let identifiers: StableExistingRecordIdentifier[] = [];
+
+      for (i = 0; i < length; i++) {
+        identifiers.push(store._instanceCache.loadData(jsonApiDoc.data[i]));
+      }
+      ret = { data: identifiers };
+      return;
+    }
+
+    if (jsonApiDoc.data === null) {
+      ret = { data: null };
+      return;
+    }
+
+    assert(
+      `Expected an object in the 'data' property in a call to 'push', but was ${typeof jsonApiDoc.data}`,
+      typeof jsonApiDoc.data === 'object'
+    );
+
+    ret = { data: store._instanceCache.loadData(jsonApiDoc.data) };
+    return;
+  });
+
+  return ret!;
+}
 
 /**
  * The CacheManager wraps a Cache
@@ -83,6 +127,18 @@ export class NonSingletonCacheManager implements Cache {
     }
   }
 
+  put<T>(doc: StructuredDocument<T>): ResourceDocument {
+    const recordData = this.#recordData;
+    if (this.#isDeprecated(recordData)) {
+      if (doc instanceof Error) {
+        // in legacy we don't know how to handle this
+        throw doc;
+      }
+      return legacyCachePut(this.#store, doc as StructuredDataDocument<JsonApiDocument>);
+    }
+    return recordData.put(doc);
+  }
+
   #isDeprecated(recordData: Cache | CacheV1): recordData is CacheV1 {
     let version = recordData.version || '1';
     return version !== this.version;
@@ -114,7 +170,7 @@ export class NonSingletonCacheManager implements Cache {
    * @param hasRecord
    * @returns {void | string[]} if `hasRecord` is true then calculated key changes should be returned
    */
-  pushData(identifier: StableRecordIdentifier, data: JsonApiResource, hasRecord?: boolean): void | string[] {
+  upsert(identifier: StableRecordIdentifier, data: JsonApiResource, hasRecord?: boolean): void | string[] {
     const recordData = this.#recordData;
     // called by something V1
     if (!isStableIdentifier(identifier)) {
@@ -123,9 +179,9 @@ export class NonSingletonCacheManager implements Cache {
       identifier = this.#identifier;
     }
     if (this.#isDeprecated(recordData)) {
-      return recordData.pushData(data, hasRecord);
+      return recordData.upsert(data, hasRecord);
     }
-    return recordData.pushData(identifier, data, hasRecord);
+    return recordData.upsert(identifier, data, hasRecord);
   }
 
   /**
@@ -134,17 +190,17 @@ export class NonSingletonCacheManager implements Cache {
    * Note: currently the only valid operation is a MergeOperation
    * which occurs when a collision of identifiers is detected.
    *
-   * @method sync
+   * @method patch
    * @public
    * @param op the operation to perform
    * @returns {void}
    */
-  sync(op: MergeOperation): void {
+  patch(op: MergeOperation): void {
     const recordData = this.#recordData;
     if (this.#isDeprecated(recordData)) {
       return;
     }
-    recordData.sync(op);
+    recordData.patch(op);
   }
 
   /**
@@ -743,6 +799,10 @@ export class SingletonCacheManager implements Cache {
     this.#recordDatas = new Map();
   }
 
+  put<T>(doc: StructuredDocument<T>): ResourceDocument {
+    throw new Error('Method not implemented.');
+  }
+
   _addRecordData(identifier: StableRecordIdentifier, recordData: Cache) {
     this.#recordDatas.set(identifier, recordData);
   }
@@ -755,12 +815,12 @@ export class SingletonCacheManager implements Cache {
   // Cache
   // =====
 
-  pushData(identifier: StableRecordIdentifier, data: JsonApiResource, hasRecord?: boolean): void | string[] {
-    return this.#recordData(identifier).pushData(identifier, data, hasRecord);
+  upsert(identifier: StableRecordIdentifier, data: JsonApiResource, hasRecord?: boolean): void | string[] {
+    return this.#recordData(identifier).upsert(identifier, data, hasRecord);
   }
 
-  sync(op: MergeOperation): void {
-    this.#recordData(op.record).sync(op);
+  patch(op: MergeOperation): void {
+    this.#recordData(op.record).patch(op);
   }
 
   clientDidCreate(identifier: StableRecordIdentifier, options?: Dict<unknown>): Dict<unknown> {
