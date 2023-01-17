@@ -48,7 +48,7 @@
     "ember-cli-test-info": "^1.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.7",
+    "@babel/core": "^7.20.12",
     "@babel/cli": "^7.20.7",
     "@glimmer/component": "^1.1.2",
     "ember-source": "~4.9.3",

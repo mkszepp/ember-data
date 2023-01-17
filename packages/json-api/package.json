@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "@ember-data/canary-features": "workspace:4.10.0-alpha.16",
-    "@babel/core": "^7.20.7",
+    "@babel/core": "^7.20.12",
     "@babel/cli": "^7.20.7",
     "@glimmer/component": "^1.1.2",
     "ember-source": "~4.9.3",
