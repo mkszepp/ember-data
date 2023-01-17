@@ -521,7 +521,7 @@ importers:
       ember-cli-string-utils: ^1.1.0
       ember-cli-test-info: ^1.0.0
       ember-source: ~4.9.3
-      inflection: ~2.0.0
+      inflection: ~2.0.1
       rollup: ^3.7.5
       tslib: ^2.4.1
       typescript: ^4.9.4
@@ -535,7 +535,7 @@ importers:
       ember-cli-babel: 7.26.11
       ember-cli-string-utils: 1.1.0
       ember-cli-test-info: 1.0.0
-      inflection: 2.0.0
+      inflection: 2.0.1
     devDependencies:
       '@babel/cli': 7.20.7_@babel+core@7.20.7
       '@babel/core': 7.20.7
@@ -10992,8 +10992,8 @@ packages:
     resolution: {integrity: sha512-6I/HUDeYFfuNCVS3td055BaXBwKYuzw7K3ExVMStBowKo9oOAMJIXIHvdyR3iboTCp1b+1i5DSkIZTcwIktuDw==}
     engines: {'0': node >= 0.4.0}
 
-  /inflection/2.0.0:
-    resolution: {integrity: sha512-omnh6uoxorVM2tC8hDAjs2gUAqP2riJO8ZZc/TIgXIMZjR7a+/HMU+KtuAZYkMb5S6oqsZilr9du3r72eFdgjA==}
+  /inflection/2.0.1:
+    resolution: {integrity: sha512-wzkZHqpb4eGrOKBl34xy3umnYHx8Si5R1U4fwmdxLo5gdH6mEK8gclckTj/qWqy4Je0bsDYe/qazZYuO7xe3XQ==}
     engines: {node: '>=14.0.0'}
 
   /inflight/1.0.6:
@@ -15966,7 +15966,7 @@ packages:
       ember-cli-string-utils: 1.1.0
       ember-cli-test-info: 1.0.0
       ember-compatibility-helpers: 1.2.6
-      inflection: 2.0.0
+      inflection: 2.0.1
     transitivePeerDependencies:
       - '@babel/core'
       - ember-source
@@ -16004,7 +16004,7 @@ packages:
       ember-cli-string-utils: 1.1.0
       ember-cli-test-info: 1.0.0
       ember-inflector: 4.0.2
-      inflection: 2.0.0
+      inflection: 2.0.1
     transitivePeerDependencies:
       - '@babel/core'
       - ember-source
@@ -16044,7 +16044,7 @@ packages:
       ember-cli-string-utils: 1.1.0
       ember-cli-test-info: 1.0.0
       ember-inflector: 4.0.2
-      inflection: 2.0.0
+      inflection: 2.0.1
     transitivePeerDependencies:
       - '@babel/core'
       - ember-source
@@ -16082,7 +16082,7 @@ packages:
       ember-cli-string-utils: 1.1.0
       ember-cli-test-info: 1.0.0
       ember-inflector: 4.0.2
-      inflection: 2.0.0
+      inflection: 2.0.1
     transitivePeerDependencies:
       - '@babel/core'
       - ember-source
